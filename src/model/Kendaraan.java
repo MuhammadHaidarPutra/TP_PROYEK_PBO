@@ -1,33 +1,39 @@
 package model;
 
-public class Kendaraan {
-    protected String idKendaraan;
+public abstract class Kendaraan {
+
+    protected String id_kendaraan;
     protected String merek;
     protected String model;
-    protected boolean tersedia;
-    protected double hargaPerHari;
+    protected boolean ketersediaan;
+    protected double hargaPerhari;
+    protected javafx.beans.property.StringProperty modelProperty = new javafx.beans.property.SimpleStringProperty();
 
     public Kendaraan(String id, String merek, String model, double harga) {
-        this.idKendaraan = id;
+        this.id_kendaraan = id;
         this.merek = merek;
         this.model = model;
-        this.hargaPerHari = harga;
-        this.tersedia = true;
+        this.hargaPerhari = harga;
+        this.ketersediaan = true;
+        this.modelProperty.set(model);
     }
+    public String getId() { return id_kendaraan; }
+    public void setStatus(String status) {
+        this.ketersediaan = !status.equals("Disewa");
+    }
+    public javafx.beans.property.StringProperty modelProperty() { return modelProperty; }
 
     public double kalkulasiHarga(int hari) {
-        return hargaPerHari * hari;
+        return hari * hargaPerhari;
     }
 
-    public boolean isTersedia() {
-        return tersedia;
+    public boolean isKetersediaan() {
+        return ketersediaan;
     }
 
-    public void setTersedia(boolean status) {
-        this.tersedia = status;
+    public void setKetersediaan(boolean status) {
+        this.ketersediaan = status;
     }
 
-    public String getInfo() {
-        return idKendaraan + " - " + merek + " " + model;
-    }
+    public abstract String getInfo();
 }

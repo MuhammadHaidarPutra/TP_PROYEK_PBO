@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.LoginController"
+      alignment="CENTER"
+      spacing="14"
+      styleClass="login-card">
+
+    <Label text="SewainAja" styleClass="title"/>
+
+    <TextField fx:id="usernameField" promptText="Username"/>
+    <PasswordField fx:id="passwordField" promptText="Password"/>
+
+    <Button text="Login" onAction="#handleLogin"/>
+
+    <Label fx:id="infoLabel" styleClass="info"/>
+
+</VBox>

@@ -1,6 +1,7 @@
 package model;
 
 public class Mobil extends Kendaraan {
+
     private int jumlahKursi;
 
     public Mobil(String id, String merek, String model, double harga, int kursi) {
@@ -10,6 +11,8 @@ public class Mobil extends Kendaraan {
 
     @Override
     public String getInfo() {
-        return super.getInfo() + " | Kursi: " + jumlahKursi;
+        return "Mobil - " + merek + " " + model +
+               " | Kursi: " + jumlahKursi +
+               " | Harga/Hari: " + hargaPerhari;
     }
 }

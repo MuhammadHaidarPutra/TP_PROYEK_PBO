@@ -1,6 +1,7 @@
 package model;
 
 public class Motor extends Kendaraan {
+
     private int mesinCC;
 
     public Motor(String id, String merek, String model, double harga, int cc) {
@@ -10,6 +11,8 @@ public class Motor extends Kendaraan {
 
     @Override
     public String getInfo() {
-        return super.getInfo() + " | CC: " + mesinCC;
+        return "Motor - " + merek + " " + model +
+               " | CC: " + mesinCC +
+               " | Harga/Hari: " + hargaPerhari;
     }
 }
