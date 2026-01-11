@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.KendaraanController" spacing="15">
+
+    <Label text="Kelola Data Kendaraan"
+           style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="tfPlat" promptText="Plat Nomor"/>
+        <TextField fx:id="tfMerk" promptText="Merk"/>
+        <TextField fx:id="tfJenis" promptText="Jenis"/>
+        <TextField fx:id="tfTahun" promptText="Tahun"/>
+        <Button text="Tambah" onAction="#handleTambah" styleClass="action-btn"/>
+        <Button text="Ubah" onAction="#handleUbah" styleClass="action-btn"/>
+        <Button text="Hapus" onAction="#handleHapus" styleClass="action-btn"/>
+    </HBox>
+    <TableView fx:id="tableKendaraan" prefHeight="300" styleClass="admin-table">
+        <columns>
+            <TableColumn fx:id="colPlat" text="Plat Nomor"/>
+            <TableColumn fx:id="colMerk" text="Merk"/>
+            <TableColumn fx:id="colJenis" text="Jenis"/>
+            <TableColumn fx:id="colTahun" text="Tahun"/>
+        </columns>
+    </TableView>
+
+</VBox>
+

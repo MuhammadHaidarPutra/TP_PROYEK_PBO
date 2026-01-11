@@ -1,13 +1,15 @@
 package model;
 
 public class Mobil extends Kendaraan {
-
     private int jumlahKursi;
 
-    public Mobil(String id, String merek, String model, double harga, int kursi) {
-        super(id, merek, model, harga);
+    public Mobil(String plat, String merk, String jenis, String tahun, int kursi) {
+        super(plat, merk, jenis, tahun);
         this.jumlahKursi = kursi;
     }
+
+    public int getJumlahKursi() { return jumlahKursi; }
+    public void setJumlahKursi(int kursi) { this.jumlahKursi = kursi; }
 
     @Override
     public String getInfo() {

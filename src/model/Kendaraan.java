@@ -1,22 +1,42 @@
 package model;
 
-public abstract class Kendaraan {
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+public class Kendaraan {
 
     // ====== ATRIBUT ======
-    protected String id_kendaraan;
-    protected String merek;
-    protected String model;
+    private final StringProperty plat = new SimpleStringProperty();
+    private final StringProperty merk = new SimpleStringProperty();
+    private final StringProperty jenis = new SimpleStringProperty();
+    private final StringProperty tahun = new SimpleStringProperty();
     protected boolean ketersediaan;
     protected double hargaPerHari;
 
     // ====== CONSTRUCTOR ======
-    public Kendaraan(String id_kendaraan, String merek, String model, double hargaPerHari) {
-        this.id_kendaraan = id_kendaraan;
-        this.merek = merek;
-        this.model = model;
-        this.hargaPerHari = hargaPerHari;
-        this.ketersediaan = true; // default tersedia
+    public Kendaraan(String plat, String merk, String jenis, String tahun) {
+        this.plat.set(plat);
+        this.merk.set(merk);
+        this.jenis.set(jenis);
+        this.tahun.set(tahun);
+        this.ketersediaan = true;
     }
+    public StringProperty platProperty() { return plat; }
+    public StringProperty merkProperty() { return merk; }
+    public StringProperty jenisProperty() { return jenis; }
+    public StringProperty tahunProperty() { return tahun; }
+
+    public String getPlat() { return plat.get(); }
+    public void setPlat(String value) { plat.set(value); }
+
+    public String getMerk() { return merk.get(); }
+    public void setMerk(String value) { merk.set(value); }
+
+    public String getJenis() { return jenis.get(); }
+    public void setJenis(String value) { jenis.set(value); }
+
+    public String getTahun() { return tahun.get(); }
+    public void setTahun(String value) { tahun.set(value); }
 
     // ====== METHOD ======
 
@@ -27,9 +47,10 @@ public abstract class Kendaraan {
 
     // Info kendaraan
     public String getInfo() {
-        return "ID: " + id_kendaraan +
-               "\nMerek: " + merek +
-               "\nModel: " + model +
+        return "Plat: " + getPlat() +
+               "\nMerk: " + getMerk() +
+               "\nJenis: " + getJenis() +
+               "\nTahun: " + getTahun() +
                "\nHarga/Hari: " + hargaPerHari +
                "\nStatus: " + (ketersediaan ? "Tersedia" : "Disewa");
     }
@@ -46,17 +67,17 @@ public abstract class Kendaraan {
 
     // Getter tambahan
     public String getIdKendaraan() {
-        return id_kendaraan; 
+        return getPlat();
     }
-    
+
     public String getMerek() {
-        return merek;
+        return getMerk();
     }
 
     public String getModel() {
-        return model;
+        return getJenis();
     }
-    
+
     public double getHargaPerHari() {
         return hargaPerHari;
     }

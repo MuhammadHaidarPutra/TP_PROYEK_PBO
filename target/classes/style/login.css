@@ -1,0 +1,62 @@
+/* Background */
+.bg {
+    -fx-background-color: linear-gradient(to right, #e3f2fd, #ffffff);
+}
+
+/* Container utama */
+.login-container {
+    -fx-background-color: white;
+    -fx-border-color: #1e88e5;
+    -fx-border-width: 3;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 5);
+    -fx-padding: 40;
+}
+
+/* Logo kiri */
+.logo-section {
+    -fx-background-color: #1e88e5;
+    -fx-padding: 50;
+    -fx-border-radius: 25 0 0 25;
+}
+
+/* Form kanan */
+.form-section {
+    -fx-padding: 50;
+    -fx-min-width: 420;
+}
+
+/* Judul */
+.title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e88e5;
+}
+
+/* Input */
+.text-field, .password-field {
+    -fx-pref-width: 340px;
+    -fx-font-size: 15px;
+    -fx-padding: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #1e88e5;
+}
+
+/* Tombol */
+.button {
+    -fx-background-color: #1e88e5;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 35;
+    -fx-background-radius: 25;
+}
+
+.button:hover {
+    -fx-background-color: #1565c0;
+}
+
+.message {
+    -fx-text-fill: red;
+}

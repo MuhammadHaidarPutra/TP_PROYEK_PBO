@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="15">
+
+       <Label text="Laporan Penyewaan, Pengembalian, dan Status Kendaraan" styleClass="section-title"/>
+       <TableView fx:id="tableLaporan" prefHeight="350" styleClass="admin-table">
+              <columns>
+                     <TableColumn fx:id="colJenis" text="Jenis Laporan"/>
+                     <TableColumn fx:id="colTanggal" text="Tanggal"/>
+                     <TableColumn fx:id="colKeterangan" text="Keterangan"/>
+                     <TableColumn fx:id="colStatus" text="Status"/>
+              </columns>
+       </TableView>
+
+</VBox>
+
+
