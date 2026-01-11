@@ -39,6 +39,16 @@
                     <include>**/*.css</include>
                 </includes>
             </resource>
+            <resource>
+                <directory>src/assets</directory>
+                <targetPath>assets</targetPath>
+                <includes>
+                    <include>**/*.png</include>
+                    <include>**/*.jpg</include>
+                    <include>**/*.jpeg</include>
+                    <include>**/*.gif</include>
+                </includes>
+            </resource>
         </resources>
         <plugins>
             <plugin>
