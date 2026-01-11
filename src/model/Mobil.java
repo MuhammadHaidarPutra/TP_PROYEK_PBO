@@ -11,8 +11,6 @@ public class Mobil extends Kendaraan {
 
     @Override
     public String getInfo() {
-        return "Mobil - " + merek + " " + model +
-               " | Kursi: " + jumlahKursi +
-               " | Harga/Hari: " + hargaPerhari;
+        return super.getInfo() + "\nJumlah Kursi: " + jumlahKursi;
     }
 }

@@ -1,9 +1,9 @@
 package model;
 
-public class User {
-    private String username;
-    private String password;
-    private String role;
+public abstract class User {
+    protected String username;
+    protected String password;
+    protected String role;
 
     public User(String username, String password, String role) {
         this.username = username;
@@ -11,15 +11,15 @@ public class User {
         this.role = role;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUsername() { 
+        return username; 
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassword() { 
+        return password; 
     }
-
-    public String getRole() {
-        return role;
+    
+    public String getRole() { 
+        return role; 
     }
 }

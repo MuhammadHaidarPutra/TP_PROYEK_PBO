@@ -1,21 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.LoginController"
+            stylesheets="@../style/login.css">
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="controller.LoginController"
-      alignment="CENTER"
-      spacing="14"
-      styleClass="login-card">
+    <center>
+        <StackPane alignment= "CENTER" styleClass="bg">
 
-    <Label text="SewainAja" styleClass="title"/>
+            <HBox styleClass="login-container" alignment="CENTER" maxWidth="900">
 
-    <TextField fx:id="usernameField" promptText="Username"/>
-    <PasswordField fx:id="passwordField" promptText="Password"/>
+                <!-- LOGO -->
+                <VBox styleClass="logo-section" alignment="CENTER">
+                    <ImageView fitWidth="260" preserveRatio="true">
+                        <image>
+                            <Image url="@../assets/sewain.png"/>
+                        </image>
+                    </ImageView>
+                </VBox>
 
-    <Button text="Login" onAction="#handleLogin"/>
+                <!-- FORM -->
+                <VBox styleClass="form-section" spacing="20" alignment="CENTER">
 
-    <Label fx:id="infoLabel" styleClass="info"/>
+                    <Label text="SISTEM PENYEWAAN KENDARAAN" styleClass="title"/>
 
-</VBox>
+                    <TextField fx:id="usernameField" promptText="Username"/>
+                    <PasswordField fx:id="passwordField" promptText="Password"/>
+
+                    <Button text="LOGIN" onAction="#login"/>
+
+                    <Label fx:id="messageLabel" styleClass="message"/>
+                </VBox>
+
+            </HBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>
+
+
+
+

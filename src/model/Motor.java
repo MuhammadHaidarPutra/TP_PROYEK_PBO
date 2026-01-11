@@ -11,8 +11,6 @@ public class Motor extends Kendaraan {
 
     @Override
     public String getInfo() {
-        return "Motor - " + merek + " " + model +
-               " | CC: " + mesinCC +
-               " | Harga/Hari: " + hargaPerhari;
+        return super.getInfo() + "\nMesin CC: " + mesinCC;
     }
 }

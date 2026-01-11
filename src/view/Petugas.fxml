@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<VBox spacing="10"
+  xmlns="http://javafx.com/javafx/8"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="controller.PetugasController">
 
-<StackPane xmlns:fx="http://javafx.com/fxml">
-    <Label text="HALAMAN PETUGAS"/>
-</StackPane>
+    <Label text="MENU PETUGAS"/>
+
+    <Button text="Input Penyewaan" onAction="#inputSewa"/>
+    <Button text="Pengembalian" onAction="#pengembalian"/>
+    <Button text="Lihat Kendaraan" onAction="#lihatKendaraan"/>
+
+    <TextArea fx:id="outputArea"/>
+</VBox>

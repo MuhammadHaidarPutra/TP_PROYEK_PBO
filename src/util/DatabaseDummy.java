@@ -1,23 +1,25 @@
 package util;
 
-import model.User;
 import java.util.ArrayList;
-import java.util.List;
+import model.*;
 
 public class DatabaseDummy {
 
-    private static final List<User> users = new ArrayList<>();
+
+    public static Admin admin = new Admin("admin", "admin123");
+    public static Petugas petugas = new Petugas("petugas", "petugas123");
+    public static ArrayList<User> users = new ArrayList<>();
 
     static {
-        users.add(new User("admin", "admin123", "ADMIN"));
-        users.add(new User("petugas", "petugas123", "PETUGAS"));
+        users.add(admin);
+        users.add(petugas);
     }
 
-    public static User login(String username, String password) {
-        for (User u : users) {
-            if (u.getUsername().equals(username) &&
-                u.getPassword().equals(password)) {
-                return u;
+    public static User login(String u, String p) {
+        for (User user : users) {
+            if (user.getUsername().equals(u) &&
+                user.getPassword().equals(p)) {
+                return user;
             }
         }
         return null;

@@ -1,5 +1,9 @@
 package model;
 
 public class Session {
-    public static SistemManajemen sistem = new SistemManajemen();
+    public static User userAktif;
+
+    public static void logout() {
+        userAktif = null;
+    }
 }
