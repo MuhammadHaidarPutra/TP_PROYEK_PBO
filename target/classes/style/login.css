@@ -1,62 +1,110 @@
-/* Background */
+/* BACKGROUND */
 .bg {
-    -fx-background-color: linear-gradient(to right, #e3f2fd, #ffffff);
+    -fx-background-color: #eaf4ff;
 }
 
-/* Container utama */
+/* MAIN CARD */
 .login-container {
     -fx-background-color: white;
-    -fx-border-color: #1e88e5;
-    -fx-border-width: 3;
-    -fx-border-radius: 25;
     -fx-background-radius: 25;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 5);
-    -fx-padding: 40;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 10);
 }
 
-/* Logo kiri */
-.logo-section {
-    -fx-background-color: #1e88e5;
-    -fx-padding: 50;
-    -fx-border-radius: 25 0 0 25;
+/* LEFT SECTION */
+.welcome-section {
+    -fx-padding: 80 60 40 60;
+    -fx-spacing: 5;
 }
 
-/* Form kanan */
+.welcome-title {
+    -fx-font-size: 38px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d62ed; /* Biru sesuai gambar */
+}
+
+.welcome-subtitle {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2d62ed;
+}
+
+.welcome-desc {
+    -fx-font-size: 16px;
+    -fx-text-fill: #555;
+    -fx-padding: 10 0 0 0;
+}
+
+/* Decorative Line & Text at Bottom Left */
+.footer-line {
+    -fx-background-color: #2d62ed;
+    -fx-min-height: 2;
+    -fx-max-height: 2;
+    -fx-min-width: 40;
+}
+
+.footer-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #777;
+}
+
+/* RIGHT LOGIN PANEL */
 .form-section {
-    -fx-padding: 50;
-    -fx-min-width: 420;
+    /* Gradasi Biru Terang ke Biru Cyan sesuai gambar */
+    -fx-background-color: linear-gradient(to bottom right, #2d62ed, #00d2ff);
+    -fx-background-radius: 0 25 25 0;
+    -fx-padding: 40 50;
+    -fx-spacing: 15;
 }
 
-/* Judul */
-.title {
-    -fx-font-size: 26px;
+.login-header-title {
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1e88e5;
-}
-
-/* Input */
-.text-field, .password-field {
-    -fx-pref-width: 340px;
-    -fx-font-size: 15px;
-    -fx-padding: 12;
-    -fx-border-radius: 12;
-    -fx-border-color: #1e88e5;
-}
-
-/* Tombol */
-.button {
-    -fx-background-color: #1e88e5;
     -fx-text-fill: white;
-    -fx-font-size: 15px;
+}
+
+.login-header-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(255,255,255,0.9);
+}
+
+/* INPUT LABELS */
+.input-label {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
-    -fx-padding: 12 35;
-    -fx-background-radius: 25;
 }
 
-.button:hover {
-    -fx-background-color: #1565c0;
+/* INPUT FIELDS */
+.text-field, .password-field {
+    -fx-pref-width: 350px;
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255,255,255,0.4);
+    -fx-border-radius: 10;
+    -fx-text-fill: white;
+    -fx-padding: 12;
 }
 
-.message {
-    -fx-text-fill: red;
+.text-field:focused, .password-field:focused {
+    -fx-border-color: white;
+    -fx-background-color: rgba(255,255,255,0.25);
+}
+
+/* LOGIN BUTTON */
+.login-button {
+    -fx-background-color: white;
+    -fx-text-fill: #2d62ed;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 12;
+    -fx-padding: 12 0;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.show-password-btn {
+    -fx-background-color: transparent;
 }
