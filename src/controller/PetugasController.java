@@ -50,13 +50,9 @@ public class PetugasController {
                 if (first) { first = false; continue; } // skip header
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    try {
-                        String username = parts[0];
-                        String password = new String(java.util.Base64.getDecoder().decode(parts[1]));
-                        data.add(new Petugas(username, password));
-                    } catch (Exception e) {
-                        showWarning("Format data petugas korup! Baris dilewati.");
-                    }
+                    String username = parts[0];
+                    String password = parts[1];
+                    data.add(new Petugas(username, password));
                 }
             }
         } catch (IOException e) {
@@ -68,8 +64,7 @@ public class PetugasController {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CSV_PATH))) {
             bw.write("username,password\n");
             for (Petugas p : data) {
-                String encodedPass = Base64.getEncoder().encodeToString(p.getPassword().getBytes());
-                bw.write(p.getUsername() + "," + encodedPass + "\n");
+                bw.write(p.getUsername() + "," + p.getPassword() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Gagal simpan CSV petugas: " + e.getMessage());
