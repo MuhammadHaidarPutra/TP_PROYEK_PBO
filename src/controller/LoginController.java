@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import model.*;
 import util.DatabaseDummy;
+import javafx.application.Platform;
 
 
 public class LoginController {
@@ -97,6 +98,6 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxml));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        stage.setMaximized(true);
+        Platform.runLater(() -> stage.setMaximized(true));
     }
 }

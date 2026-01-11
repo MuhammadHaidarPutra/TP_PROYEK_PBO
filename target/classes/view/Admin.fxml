@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
 <BorderPane xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.AdminController"
             stylesheets="@../style/admin.css">
 
-    <!-- SIDEBAR -->
     <left>
-        <VBox styleClass="sidebar" spacing="15">
-            <Label text="ADMIN PANEL" styleClass="sidebar-title"/>
-
-            <Button text="Dashboard" onAction="#showDashboard"/>
-            <Button text="Kelola Kendaraan" onAction="#showKendaraan"/>
-            <Button text="Kelola Petugas" onAction="#showPetugas"/>
-            <Button text="Laporan" onAction="#showLaporan"/>
-            <Button text="Logout" onAction="#logout"/>
+        <VBox styleClass="sidebar" spacing="15" alignment="TOP_CENTER" fx:id="sidebarBox">
+            <Label text="ADMIN" styleClass="sidebar-title"/>
+            <VBox styleClass="sidebar-menu-card" spacing="16" alignment="TOP_CENTER">
+                <Button text="Kelola Kendaraan" onAction="#showKendaraan"/>
+                <Button text="Kelola Petugas" onAction="#showPetugas"/>
+                <Button text="Laporan" onAction="#showLaporan"/>
+            </VBox>
+            <Button text="Logout" styleClass="logout-btn" onAction="#logout" VBox.vgrow="NEVER"/>
+            <Region VBox.vgrow="ALWAYS"/>
         </VBox>
     </left>
 
-    <!-- KONTEN -->
+    <top>
+        <HBox styleClass="header">
+            <Label text="Dashboard Admin" styleClass="header-title"/>
+        </HBox>
+    </top>
+
     <center>
-        <StackPane fx:id="contentArea" styleClass="content-area"/>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <Label text="Selamat Datang di Sistem Penyewaan Kendaraan"
+                   styleClass="welcome-text"/>
+        </StackPane>
     </center>
 
 </BorderPane>
-
-
-

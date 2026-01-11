@@ -16,10 +16,10 @@
         <Button text="Ubah" onAction="#handleUbah" styleClass="action-btn"/>
         <Button text="Hapus" onAction="#handleHapus" styleClass="action-btn"/>
     </HBox>
-    <TableView fx:id="tablePetugas" prefHeight="300" styleClass="admin-table">
+    <TableView fx:id="tablePetugas" VBox.vgrow="ALWAYS" prefHeight="300" maxWidth="1000" prefWidth="1.0" styleClass="admin-table">
         <columns>
-            <TableColumn fx:id="colUsername" text="Username"/>
-            <TableColumn fx:id="colPassword" text="Password"/>
+            <TableColumn fx:id="colUsername" text="Username" prefWidth="180"/>
+            <TableColumn fx:id="colPassword" text="Password" prefWidth="180"/>
         </columns>
     </TableView>
 

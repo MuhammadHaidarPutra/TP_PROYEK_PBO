@@ -4,15 +4,26 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="15">
 
-       <Label text="Laporan Penyewaan, Pengembalian, dan Status Kendaraan" styleClass="section-title"/>
-       <TableView fx:id="tableLaporan" prefHeight="350" styleClass="admin-table">
+          <Label text="Laporan Penyewaan, Pengembalian, dan Status Kendaraan" styleClass="section-title"/>
+          <BarChart fx:id="chartPenyewaan" title="Perbandingan Penyewaan Motor vs Mobil" VBox.vgrow="NEVER">
+                 <xAxis>
+                        <CategoryAxis label="Jenis Kendaraan"/>
+                 </xAxis>
+                 <yAxis>
+                        <NumberAxis label="Jumlah Penyewaan"/>
+                 </yAxis>
+          </BarChart>
+          <TableView fx:id="tableLaporan" VBox.vgrow="ALWAYS" prefHeight="350" maxWidth="1000" prefWidth="1.0" styleClass="admin-table">
               <columns>
-                     <TableColumn fx:id="colJenis" text="Jenis Laporan"/>
-                     <TableColumn fx:id="colTanggal" text="Tanggal"/>
-                     <TableColumn fx:id="colKeterangan" text="Keterangan"/>
-                     <TableColumn fx:id="colStatus" text="Status"/>
+                     <TableColumn fx:id="colJenis" text="Jenis Laporan" prefWidth="160"/>
+                     <TableColumn fx:id="colTanggal" text="Tanggal" prefWidth="120"/>
+                     <TableColumn fx:id="colKeterangan" text="Keterangan" prefWidth="180"/>
+                     <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
               </columns>
        </TableView>
 

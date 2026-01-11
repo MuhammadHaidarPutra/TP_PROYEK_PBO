@@ -6,26 +6,33 @@
 <?import javafx.scene.control.*?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.KendaraanController" spacing="15">
 
-    <Label text="Kelola Data Kendaraan"
-           style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+    <Label text="Kelola Data Kendaraan" styleClass="kendaraan-title"/>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <TextField fx:id="tfSearch" promptText="Cari kendaraan..." styleClass="search-field" onKeyReleased="#handleSearch" />
+    </HBox>
 
-    <HBox spacing="10">
-        <TextField fx:id="tfPlat" promptText="Plat Nomor"/>
-        <TextField fx:id="tfMerk" promptText="Merk"/>
-        <TextField fx:id="tfJenis" promptText="Jenis"/>
-        <TextField fx:id="tfTahun" promptText="Tahun"/>
+    <HBox spacing="10" styleClass="kendaraan-form">
+        <TextField fx:id="tfPlat" promptText="Plat Nomor" styleClass="text-field"/>
+        <TextField fx:id="tfMerk" promptText="Merk" styleClass="text-field"/>
+        <TextField fx:id="tfJenis" promptText="Jenis" styleClass="text-field"/>
+        <TextField fx:id="tfTahun" promptText="Tahun" styleClass="text-field"/>
         <Button text="Tambah" onAction="#handleTambah" styleClass="action-btn"/>
         <Button text="Ubah" onAction="#handleUbah" styleClass="action-btn"/>
         <Button text="Hapus" onAction="#handleHapus" styleClass="action-btn"/>
     </HBox>
-    <TableView fx:id="tableKendaraan" prefHeight="300" styleClass="admin-table">
+    <TableView fx:id="tableKendaraan" VBox.vgrow="ALWAYS" prefHeight="300" maxWidth="1000" prefWidth="1.0" styleClass="admin-table">
         <columns>
-            <TableColumn fx:id="colPlat" text="Plat Nomor"/>
-            <TableColumn fx:id="colMerk" text="Merk"/>
-            <TableColumn fx:id="colJenis" text="Jenis"/>
-            <TableColumn fx:id="colTahun" text="Tahun"/>
+            <TableColumn fx:id="colPlat" text="Plat Nomor" prefWidth="150"/>
+            <TableColumn fx:id="colMerk" text="Merk" prefWidth="150"/>
+            <TableColumn fx:id="colJenis" text="Jenis" prefWidth="150"/>
+            <TableColumn fx:id="colTahun" text="Tahun" prefWidth="100"/>
         </columns>
     </TableView>
+    <HBox spacing="10" alignment="CENTER" style="-fx-padding: 0 0 0 0;">
+        <Button fx:id="btnPrev" text="Prev" onAction="#prevPage" />
+        <Label fx:id="pageInfoLabel" text="Halaman 1/1" style="-fx-font-weight: bold; -fx-padding: 0 10 0 10;" />
+        <Button fx:id="btnNext" text="Next" onAction="#nextPage" />
+    </HBox>
 
 </VBox>
 

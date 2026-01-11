@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
 <VBox spacing="10"
   xmlns="http://javafx.com/javafx/8"
@@ -8,9 +9,31 @@
 
     <Label text="MENU PETUGAS"/>
 
-    <Button text="Input Penyewaan" onAction="#inputSewa"/>
-    <Button text="Pengembalian" onAction="#pengembalian"/>
-    <Button text="Lihat Kendaraan" onAction="#lihatKendaraan"/>
+    <HBox spacing="10">
+      <VBox spacing="5">
+        <Label text="Username"/>
+        <TextField fx:id="tfUsername" promptText="Username"/>
+        <Label text="Password"/>
+        <PasswordField fx:id="tfPassword" promptText="Password"/>
+        <HBox spacing="5">
+          <Button text="Tambah" onAction="#handleTambah"/>
+          <Button text="Ubah" onAction="#handleUbah"/>
+          <Button text="Hapus" onAction="#handleHapus"/>
+        </HBox>
+      </VBox>
+      <TableView fx:id="tablePetugas" prefWidth="250">
+        <columns>
+          <TableColumn fx:id="colUsername" text="Username" prefWidth="120"/>
+          <TableColumn fx:id="colPassword" text="Password" prefWidth="120"/>
+        </columns>
+      </TableView>
+    </HBox>
 
-    <TextArea fx:id="outputArea"/>
+    <HBox spacing="10">
+      <Button text="Input Penyewaan" onAction="#inputSewa"/>
+      <Button text="Pengembalian" onAction="#pengembalian"/>
+      <Button text="Lihat Kendaraan" onAction="#lihatKendaraan"/>
+    </HBox>
+
+    <TextArea fx:id="outputArea" prefRowCount="4"/>
 </VBox>

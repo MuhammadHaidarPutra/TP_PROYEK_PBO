@@ -4,6 +4,10 @@ import javafx.fxml.*;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import model.Session;
+import model.Admin;
+import javafx.scene.control.Alert;
+import javafx.application.Platform;
 
 public class AdminController {
 
@@ -12,13 +16,35 @@ public class AdminController {
 
     @FXML
     public void initialize() {
+        // Batasi akses hanya untuk admin
+        if (!(Session.userAktif instanceof Admin)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Akses Ditolak");
+            alert.setHeaderText(null);
+            alert.setContentText("Anda tidak memiliki akses ke menu admin.");
+            alert.showAndWait();
+            logout();
+            return;
+        }
         loadView("AdminDashboard.fxml");
     }
 
     private void loadView(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxml));
-            contentArea.getChildren().setAll((javafx.scene.Node) loader.load());
+            javafx.scene.Node node = (javafx.scene.Node) loader.load();
+            contentArea.getChildren().setAll(node);
+            // Binding ukuran agar node selalu mengikuti parent
+            if (node instanceof javafx.scene.layout.Region) {
+                javafx.scene.layout.Region region = (javafx.scene.layout.Region) node;
+                region.prefWidthProperty().bind(contentArea.widthProperty());
+                region.prefHeightProperty().bind(contentArea.heightProperty());
+            }
+            // Pastikan window tetap fullscreen
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            if (stage != null) {
+                stage.setMaximized(true);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,10 +78,9 @@ public class AdminController {
                 FXMLLoader.load(getClass().getResource("/view/Login.fxml"))
             );
             stage.setScene(scene);
-            stage.setMaximized(true);
+            Platform.runLater(() -> stage.setMaximized(true));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    // ...existing code...
 }
