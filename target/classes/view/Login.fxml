@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.LoginController"
+            stylesheets="@../style/login.css">
+
+    <center>
+        <StackPane styleClass="bg">
+            <HBox styleClass="login-container" maxWidth="1000" maxHeight="550">
+                
+                <VBox styleClass="welcome-section" prefWidth="500">
+                    <VBox spacing="2" VBox.vgrow="ALWAYS">
+                        <Label text="Selamat Datang di" styleClass="welcome-title"/>
+                        <Label text="SewainAja" styleClass="welcome-subtitle"/>
+                        <Label text="Rental Motor &amp; Mobil Terpercaya" styleClass="welcome-desc"/>
+                    </VBox>
+                    
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Region styleClass="footer-line"/>
+                        <Label text="Sistem Penyewaan Kendaraan" styleClass="footer-text"/>
+                    </HBox>
+                </VBox>
+
+                <VBox styleClass="form-section" prefWidth="500" alignment="TOP_CENTER">
+                    
+                    <VBox alignment="CENTER" spacing="5">
+                        <ImageView fitWidth="280" preserveRatio="true">
+                            <image>
+                                <Image url="@../assets/sewain.png"/>
+                            </image>
+                        </ImageView>
+                        <padding>
+                            <Insets top="20" bottom="30"/>
+                        </padding>
+                    </VBox>
+
+                    <Label text="Login" styleClass="login-header-title"/>
+                    <Label text="Masuk ke akun Anda untuk melanjutkan" styleClass="login-header-desc"/>
+                    <VBox spacing="15">
+                        <padding>
+                            <Insets top="20"/>
+                        </padding>
+                        
+                        <VBox spacing="8">
+                            <Label text="Username" styleClass="input-label"/>
+                            <TextField fx:id="usernameField" promptText="Masukkan username"/>
+                        </VBox>
+
+                        <VBox spacing="8">
+                            <Label text="Password" styleClass="input-label"/>
+                            <StackPane alignment="CENTER_RIGHT">
+                                <PasswordField fx:id="passwordField" promptText="Masukkan password"/>
+                                <TextField fx:id="showPasswordField" promptText="Masukkan password" visible="false" managed="false"/>
+                                <Button fx:id="togglePasswordBtn" onAction="#togglePassword" styleClass="show-password-btn">
+                                    <graphic>
+                                        <ImageView fitWidth="18" fitHeight="18" opacity="0.7">
+                                            <image>
+                                                <Image url="@../assets/eye.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </StackPane>
+                        </VBox>
+                    </VBox>
+
+                    <Region VBox.vgrow="ALWAYS" />
+
+                    <Button text="LOGIN" onAction="#login" maxWidth="Infinity" styleClass="login-button"/>
+                    <Label fx:id="messageLabel" styleClass="message"/>
+                </VBox>
+
+            </HBox>
+        </StackPane>
+    </center>
+</BorderPane>
