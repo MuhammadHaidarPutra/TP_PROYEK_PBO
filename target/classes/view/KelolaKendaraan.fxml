@@ -13,9 +13,9 @@
 
     <HBox spacing="10" styleClass="kendaraan-form">
         <TextField fx:id="tfPlat" promptText="Plat Nomor" styleClass="text-field"/>
-        <TextField fx:id="tfMerk" promptText="Merk" styleClass="text-field"/>
-        <TextField fx:id="tfJenis" promptText="Jenis" styleClass="text-field"/>
-        <TextField fx:id="tfTahun" promptText="Tahun" styleClass="text-field"/>
+        <ComboBox fx:id="cbJenis" promptText="Pilih Jenis" prefWidth="150" styleClass="combo-box"/>
+        <ComboBox fx:id="cbMerk" promptText="Pilih Merk" prefWidth="150" styleClass="combo-box"/>
+        <ComboBox fx:id="cbTahun" promptText="Pilih Tahun" prefWidth="100" styleClass="combo-box"/>
         <Button text="Tambah" onAction="#handleTambah" styleClass="action-btn"/>
         <Button text="Ubah" onAction="#handleUbah" styleClass="action-btn"/>
         <Button text="Hapus" onAction="#handleHapus" styleClass="action-btn"/>

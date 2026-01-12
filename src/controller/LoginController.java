@@ -46,8 +46,8 @@ public class LoginController {
                 System.out.println("Opening Admin.fxml");
                 open("Admin.fxml");
             } else if (user instanceof Petugas) {
-                System.out.println("Opening Petugas.fxml");
-                open("Petugas.fxml");
+                System.out.println("Opening PetugasDashboard.fxml");
+                open("PetugasDashboard.fxml");
             } else {
                 showAlert("Login berhasil, tapi tipe user tidak dikenali.");
             }
@@ -57,19 +57,21 @@ public class LoginController {
         }
     }
 
-    @FXML
     private boolean passwordVisible = false;
 
     @FXML
     public void togglePassword() {
         passwordVisible = !passwordVisible;
+        
         if (passwordVisible) {
+            // Tampilkan password (TextField biasa)
             showPasswordField.setText(passwordField.getText());
             showPasswordField.setVisible(true);
             showPasswordField.setManaged(true);
             passwordField.setVisible(false);
             passwordField.setManaged(false);
         } else {
+            // Sembunyikan password (PasswordField)
             passwordField.setText(showPasswordField.getText());
             passwordField.setVisible(true);
             passwordField.setManaged(true);
@@ -88,9 +90,23 @@ public class LoginController {
 
     @FXML
     public void initialize() {
+        // Set default state: password tersembunyi
+        passwordVisible = false;
         showPasswordField.setVisible(false);
         showPasswordField.setManaged(false);
-        showPasswordField.textProperty().bindBidirectional(passwordField.textProperty());
+        
+        // Sinkronisasi text antara passwordField dan showPasswordField
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (passwordField.isVisible()) {
+                showPasswordField.setText(newValue);
+            }
+        });
+        
+        showPasswordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (showPasswordField.isVisible()) {
+                passwordField.setText(newValue);
+            }
+        });
     }
 
     private void open(String fxml) throws Exception {

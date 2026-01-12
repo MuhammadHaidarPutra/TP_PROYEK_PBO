@@ -9,15 +9,28 @@
             stylesheets="@../style/admin.css">
 
     <left>
-        <VBox styleClass="sidebar" spacing="15" alignment="TOP_CENTER" fx:id="sidebarBox">
-            <Label text="ADMIN" styleClass="sidebar-title"/>
-            <VBox styleClass="sidebar-menu-card" spacing="16" alignment="TOP_CENTER">
-                <Button text="Kelola Kendaraan" onAction="#showKendaraan"/>
-                <Button text="Kelola Petugas" onAction="#showPetugas"/>
-                <Button text="Laporan" onAction="#showLaporan"/>
+        <VBox styleClass="sidebar" prefWidth="250">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="20" bottom="20"/>
+                </padding>
+
+                <Label text="MENU UTAMA" styleClass="sidebar-header"/>
+
+                <Button text="🚗 Kelola Kendaraan" onAction="#showKendaraan" 
+                        styleClass="sidebar-btn" maxWidth="Infinity"/>
+                <Button text="👨‍💼 Kelola Petugas" onAction="#showPetugas" 
+                        styleClass="sidebar-btn" maxWidth="Infinity"/>
+                <Button text="📊 Laporan" onAction="#showLaporan" 
+                        styleClass="sidebar-btn" maxWidth="Infinity"/>
+
+                <Button text="🚪 Logout" styleClass="sidebar-btn" onAction="#logout" maxWidth="Infinity"/>
             </VBox>
-            <Button text="Logout" styleClass="logout-btn" onAction="#logout" VBox.vgrow="NEVER"/>
             <Region VBox.vgrow="ALWAYS"/>
+            <VBox styleClass="sidebar-footer">
+                <Label text="Sistem Manajemen" styleClass="footer-text"/>
+                <Label text="Penyewaan Kendaraan" styleClass="footer-text"/>
+            </VBox>
         </VBox>
     </left>
 

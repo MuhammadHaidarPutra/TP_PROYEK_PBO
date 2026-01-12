@@ -18,15 +18,36 @@
             <HBox styleClass="login-container" maxWidth="1000" maxHeight="550">
                 
                 <VBox styleClass="welcome-section" prefWidth="500">
-                    <VBox spacing="2" VBox.vgrow="ALWAYS">
+                    <VBox spacing="8" VBox.vgrow="ALWAYS">
                         <Label text="Selamat Datang di" styleClass="welcome-title"/>
                         <Label text="SewainAja" styleClass="welcome-subtitle"/>
-                        <Label text="Rental Motor &amp; Mobil Terpercaya" styleClass="welcome-desc"/>
+                        <Label text="Solusi terpercaya untuk rental motor &amp; mobil dengan layanan profesional dan armada terawat" styleClass="welcome-desc" wrapText="true"/>
+                        
+                        <VBox spacing="15">
+                            <padding>
+                                <Insets top="40"/>
+                            </padding>
+                            
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #2d62ed; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                                <Label text="Armada lengkap &amp; terawat" style="-fx-text-fill: #64748b; -fx-font-size: 14px;"/>
+                            </HBox>
+                            
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #2d62ed; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                                <Label text="Harga terjangkau" style="-fx-text-fill: #64748b; -fx-font-size: 14px;"/>
+                            </HBox>
+                            
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Label text="✓" style="-fx-text-fill: #2d62ed; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                                <Label text="Pelayanan 24/7" style="-fx-text-fill: #64748b; -fx-font-size: 14px;"/>
+                            </HBox>
+                        </VBox>
                     </VBox>
                     
-                    <HBox alignment="CENTER_LEFT" spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="15">
                         <Region styleClass="footer-line"/>
-                        <Label text="Sistem Penyewaan Kendaraan" styleClass="footer-text"/>
+                        <Label text="Sistem Manajemen Penyewaan" styleClass="footer-text"/>
                     </HBox>
                 </VBox>
 

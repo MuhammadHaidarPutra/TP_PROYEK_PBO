@@ -1,50 +1,62 @@
 /* BACKGROUND */
 .bg {
-    -fx-background-color: #eaf4ff;
+    -fx-background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* MAIN CARD */
 .login-container {
     -fx-background-color: white;
     -fx-background-radius: 25;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 30, 0, 0, 10);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 40, 0, 0, 15);
 }
 
 /* LEFT SECTION */
 .welcome-section {
-    -fx-padding: 80 60 40 60;
-    -fx-spacing: 5;
+    -fx-padding: 80 60 50 60;
+    -fx-spacing: 8;
+    -fx-background-color: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+    -fx-background-radius: 25 0 0 25;
 }
 
 .welcome-title {
-    -fx-font-size: 38px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2d62ed; /* Biru sesuai gambar */
+    -fx-font-size: 22px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #64748b;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-letter-spacing: 0.5px;
 }
 
 .welcome-subtitle {
-    -fx-font-size: 32px;
+    -fx-font-size: 48px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d62ed;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-letter-spacing: -1px;
 }
 
 .welcome-desc {
-    -fx-font-size: 16px;
-    -fx-text-fill: #555;
-    -fx-padding: 10 0 0 0;
+    -fx-font-size: 17px;
+    -fx-text-fill: #64748b;
+    -fx-padding: 15 0 0 0;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-weight: 400;
+    -fx-line-spacing: 1.5;
 }
 
 /* Decorative Line & Text at Bottom Left */
 .footer-line {
-    -fx-background-color: #2d62ed;
-    -fx-min-height: 2;
-    -fx-max-height: 2;
-    -fx-min-width: 40;
+    -fx-background-color: linear-gradient(to right, #2d62ed, transparent);
+    -fx-min-height: 3;
+    -fx-max-height: 3;
+    -fx-min-width: 60;
+    -fx-background-radius: 2;
 }
 
 .footer-text {
     -fx-font-size: 13px;
-    -fx-text-fill: #777;
+    -fx-text-fill: #94a3b8;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-weight: 500;
 }
 
 /* RIGHT LOGIN PANEL */
@@ -107,4 +119,17 @@
 
 .show-password-btn {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 5 10 5 10;
+}
+
+.show-password-btn:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-background-radius: 5;
+}
+
+.show-password-btn:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 5;
 }

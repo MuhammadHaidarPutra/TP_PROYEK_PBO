@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controller.PetugasDashboardController"
+            stylesheets="@../style/admin.css">
+    
+    <!-- TOP BAR -->
+    <top>
+        <HBox styleClass="top-bar" alignment="CENTER_LEFT">
+            <Label text="SEWAINAJA - Dashboard Petugas" styleClass="app-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblUserInfo" text="Petugas: -" styleClass="user-info"/>
+        </HBox>
+    </top>
+    
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="250">
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="20" bottom="20"/>
+                </padding>
+                
+                <Label text="MENU UTAMA" styleClass="sidebar-header"/>
+                
+                <Button fx:id="btnInputSewa" text="📝 Input Penyewaan" 
+                        onAction="#showInputSewa" 
+                        styleClass="sidebar-btn" maxWidth="Infinity"/>
+                
+                <Button fx:id="btnPengembalian" text="↩️ Pengembalian" 
+                        onAction="#showPengembalian" 
+                        styleClass="sidebar-btn" maxWidth="Infinity"/>
+                
+                <Button fx:id="btnLihatKendaraan" text="🚗 Data Kendaraan" 
+                        onAction="#showLihatKendaraan" 
+                        styleClass="sidebar-btn" maxWidth="Infinity"/>
+
+                <Button text="🚪 Logout" onAction="#logout" styleClass="sidebar-btn" maxWidth="Infinity"/>
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS"/>
+            
+            <VBox styleClass="sidebar-footer">
+                <Label text="Sistem Manajemen" styleClass="footer-text"/>
+                <Label text="Penyewaan Kendaraan" styleClass="footer-text"/>
+            </VBox>
+        </VBox>
+    </left>
+    
+    <!-- CENTER CONTENT -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area">
+            <!-- Content will be loaded dynamically -->
+        </StackPane>
+    </center>
+</BorderPane>

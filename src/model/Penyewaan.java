@@ -50,4 +50,9 @@ public class Penyewaan {
     public String getStatus() { return status; }
     public Kendaraan getKendaraan() { return kendaraan; }
     public Pelanggan getPelanggan() { return pelanggan; }
+    public int getHari() { return hari; }
+    public double getTotalBiaya() { return totalBiaya; }
+    
+    // ===== SETTER =====
+    public void setStatus(String status) { this.status = status; }
 }

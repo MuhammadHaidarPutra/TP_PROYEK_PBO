@@ -9,17 +9,23 @@ import model.Kendaraan;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 public class KendaraanController {
-    @FXML private TextField tfPlat, tfMerk, tfJenis, tfTahun, tfSearch;
+    @FXML private TextField tfPlat, tfSearch;
+    @FXML private ComboBox<String> cbJenis, cbMerk, cbTahun;
     @FXML private TableView<Kendaraan> tableKendaraan;
     @FXML private TableColumn<Kendaraan, String> colPlat, colMerk, colJenis, colTahun;
 
     private ObservableList<Kendaraan> data = FXCollections.observableArrayList();
     private ObservableList<Kendaraan> filteredData = FXCollections.observableArrayList();
     private final String CSV_PATH = "src/assets/kendaraan.csv";
+    
+    // Data Dinamis
+    private Map<String, List<String>> mapMerk = new HashMap<>();
+    private Map<String, List<String>> mapTahun = new HashMap<>();
 
     private int pageSize = 10;
     private int currentPage = 1;
@@ -33,8 +39,83 @@ public class KendaraanController {
         colJenis.setCellValueFactory(cell -> cell.getValue().jenisProperty());
         colTahun.setCellValueFactory(cell -> cell.getValue().tahunProperty());
 
+        setupDataKendaraan();
         loadKendaraanFromCSV();
         updateTablePage();
+        
+        // Listener saat memilih baris tabel
+        tableKendaraan.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                fillForm(newSelection);
+            }
+        });
+    }
+
+    private void setupDataKendaraan() {
+        // Init Jenis
+        cbJenis.setItems(FXCollections.observableArrayList("Mobil", "Motor"));
+
+        // Init Data Merk (Indonesia)
+        List<String> merkMobil = Arrays.asList(
+            "Toyota", "Honda", "Daihatsu", "Suzuki", "Mitsubishi", "Nissan", "Mazda", 
+            "Wuling", "Hyundai", "KIA", "BMW", "Mercedes-Benz", "Lexus", "Isuzu", "Chery"
+        );
+        List<String> merkMotor = Arrays.asList(
+            "Honda", "Yamaha", "Suzuki", "Kawasaki", "Vespa", "TVS", "Viar", 
+            "Ducati", "BMW Motorrad", "KTM", "Royal Enfield", "Harley-Davidson"
+        );
+
+        mapMerk.put("Mobil", merkMobil);
+        mapMerk.put("Motor", merkMotor);
+
+        // Listener Jenis -> Update Merk
+        cbJenis.setOnAction(e -> {
+            String selectedJenis = cbJenis.getValue();
+            if (selectedJenis != null && mapMerk.containsKey(selectedJenis)) {
+                cbMerk.setItems(FXCollections.observableArrayList(mapMerk.get(selectedJenis)));
+                cbMerk.setDisable(false);
+            } else {
+                cbMerk.getItems().clear();
+                cbMerk.setDisable(true);
+            }
+            cbTahun.getItems().clear();
+            cbTahun.setDisable(true);
+        });
+
+        // Listener Merk -> Update Tahun
+        cbMerk.setOnAction(e -> {
+            String selectedMerk = cbMerk.getValue();
+            if (selectedMerk != null) {
+                updateTahunList(selectedMerk);
+                cbTahun.setDisable(false);
+            } else {
+                cbTahun.getItems().clear();
+                cbTahun.setDisable(true);
+            }
+        });
+    }
+
+    private void updateTahunList(String merk) {
+        List<String> years = new ArrayList<>();
+        int startYear = 1990; // Default start year
+        int endYear = 2026;   // Current year
+
+        // Custom start years based on brand entry in Indonesia (approximate)
+        if (merk.equals("Wuling") || merk.equals("Hyundai") || merk.equals("Chery")) startYear = 2015;
+        if (merk.equals("TVS") || merk.equals("Viar")) startYear = 2010;
+
+        for (int i = endYear; i >= startYear; i--) {
+            years.add(String.valueOf(i));
+        }
+        cbTahun.setItems(FXCollections.observableArrayList(years));
+    }
+
+    private void fillForm(Kendaraan k) {
+        tfPlat.setText(k.getPlat());
+        cbJenis.setValue(k.getJenis());
+        // Trigger listener manual if needed, but setValue usually triggers checks
+        cbMerk.setValue(k.getMerk());
+        cbTahun.setValue(k.getTahun());
     }
 
     private void loadKendaraanFromCSV() {
@@ -122,12 +203,13 @@ public class KendaraanController {
     @FXML
     public void handleTambah() {
         String plat = tfPlat.getText().trim();
-        String merk = tfMerk.getText().trim();
-        String jenis = tfJenis.getText().trim();
-        String tahun = tfTahun.getText().trim();
+        String merk = cbMerk.getValue();
+        String jenis = cbJenis.getValue();
+        String tahun = cbTahun.getValue();
+        
         // Validasi field kosong
-        if (plat.isEmpty() || merk.isEmpty() || jenis.isEmpty() || tahun.isEmpty()) {
-            showWarning("Semua field harus diisi!");
+        if (plat.isEmpty() || merk == null || jenis == null || tahun == null) {
+            showWarning("Semua field harus dipilih/diisi!");
             return;
         }
         // Validasi format plat nomor (minimal 5 karakter, ada huruf dan angka)
@@ -135,11 +217,7 @@ public class KendaraanController {
             showWarning("Format plat nomor tidak valid!");
             return;
         }
-        // Validasi tahun (harus angka dan rentang tahun masuk akal)
-        if (!tahun.matches("\\d{4}") || Integer.parseInt(tahun) < 1990 || Integer.parseInt(tahun) > 2026) {
-            showWarning("Tahun harus 4 digit dan antara 1990-2026!");
-            return;
-        }
+        
         // Validasi duplikasi plat nomor
         for (Kendaraan kd : data) {
             if (kd.getPlat().equalsIgnoreCase(plat)) {
@@ -152,7 +230,7 @@ public class KendaraanController {
         saveKendaraanToCSV();
         showInfo("Data kendaraan berhasil ditambahkan.");
         updateTablePage();
-        handleSearch(); // update filteredData dan tampilan tabel
+        handleSearch(); 
         clearForm();
     }
 
@@ -161,11 +239,12 @@ public class KendaraanController {
         Kendaraan k = tableKendaraan.getSelectionModel().getSelectedItem();
         if (k != null) {
             String plat = tfPlat.getText().trim();
-            String merk = tfMerk.getText().trim();
-            String jenis = tfJenis.getText().trim();
-            String tahun = tfTahun.getText().trim();
-            if (plat.isEmpty() || merk.isEmpty() || jenis.isEmpty() || tahun.isEmpty()) {
-                showWarning("Semua field harus diisi!");
+            String merk = cbMerk.getValue();
+            String jenis = cbJenis.getValue();
+            String tahun = cbTahun.getValue();
+            
+            if (plat.isEmpty() || merk == null || jenis == null || tahun == null) {
+                showWarning("Semua field harus dipilih/diisi!");
                 return;
             }
             // Validasi duplikasi plat nomor (kecuali data yang sedang diubah)
@@ -208,10 +287,13 @@ public class KendaraanController {
 
     private void clearForm() {
         tfPlat.clear();
-        tfMerk.clear();
-        tfJenis.clear();
-        tfTahun.clear();
+        cbJenis.getSelectionModel().clearSelection();
+        cbMerk.getItems().clear();
+        cbTahun.getItems().clear();
+        cbMerk.setDisable(true);
+        cbTahun.setDisable(true);
     }
+
     private void showWarning(String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Peringatan");

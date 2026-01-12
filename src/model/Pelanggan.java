@@ -6,12 +6,14 @@ public class Pelanggan {
     private String id_pelanggan;
     private String nama;
     private String no_telepon;
+    private String alamat;
 
     // ===== CONSTRUCTOR =====
-    public Pelanggan(String id_pelanggan, String nama, String no_telepon) {
+    public Pelanggan(String id_pelanggan, String nama, String no_telepon, String alamat) {
         this.id_pelanggan = id_pelanggan;
         this.nama = nama;
         this.no_telepon = no_telepon;
+        this.alamat = alamat;
     }
 
     // ===== METHOD =====
@@ -20,7 +22,8 @@ public class Pelanggan {
     public String getPelanggan() {
         return "ID Pelanggan : " + id_pelanggan +
                "\nNama         : " + nama +
-               "\nNo Telepon   : " + no_telepon;
+               "\nNo Telepon   : " + no_telepon +
+               "\nAlamat       : " + alamat;
     }
 
     // Mengubah nama pelanggan
@@ -31,6 +34,10 @@ public class Pelanggan {
     // Mengubah nomor telepon
     public void setNo_telepon(String no_telepon) {
         this.no_telepon = no_telepon;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     // ===== GETTER TAMBAHAN (opsional) =====
@@ -44,5 +51,9 @@ public class Pelanggan {
 
     public String getNoTelepon() {
         return no_telepon;
+    }
+    
+    public String getAlamat() {
+        return alamat;
     }
 }
