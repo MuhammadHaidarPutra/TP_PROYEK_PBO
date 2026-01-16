@@ -2,8 +2,6 @@ package model;
 
 public class Penyewaan {
     private String tanggal;
-
-
     private String id_sewa;
     private int hari;
     private double totalBiaya;
@@ -19,7 +17,6 @@ public class Penyewaan {
         this.status = "Disewa";
         this.tanggal = null;
         hitungTotal();
-        // mulaiSewa() dipanggil hanya jika tanggal valid di controller
     }
 
     public void setTanggal(String tanggal) {

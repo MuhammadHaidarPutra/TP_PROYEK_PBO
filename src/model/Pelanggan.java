@@ -35,6 +35,7 @@ public class Pelanggan {
     public String getIdPelanggan() {
         return id_pelanggan;
     }
+    
 
     public String getNama() {
         return nama;

@@ -3,11 +3,10 @@ package model;
 import java.util.ArrayList;
 
 public class SistemManajemen {
-
-
     private ArrayList<Pelanggan> listPelanggan = new ArrayList<>();
     private ArrayList<Kendaraan> listKendaraan = new ArrayList<>();
     private ArrayList<Penyewaan> listRental = new ArrayList<>();
+    private ArrayList<Petugas> listPetugas = new ArrayList<>();
 
     public void tambahPelanggan(Pelanggan p) {
         listPelanggan.add(p);
@@ -47,6 +46,14 @@ public class SistemManajemen {
             System.out.println(k.getInfo());
             System.out.println("----------------------");
         }
+    }
+
+    public void tambahPetugas(Petugas p) {
+        listPetugas.add(p);
+    }
+
+    public ArrayList<Petugas> getListPetugas() {
+        return listPetugas;
     }
 
     public void buatRental(String idSewa, Pelanggan p, Kendaraan k, int hari) {
