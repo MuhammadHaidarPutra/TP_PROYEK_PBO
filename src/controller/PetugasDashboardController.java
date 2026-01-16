@@ -119,13 +119,14 @@ public class PetugasDashboardController {
         container.setPadding(new Insets(30));
         
         Label welcome = new Label("Selamat Datang, " + (Session.userAktif != null ? Session.userAktif.getUsername() : "Petugas"));
-        welcome.setStyle("-fx-font-size: 28; -fx-font-weight: bold;");
-        
+        welcome.getStyleClass().add("welcome-title");
+
         Label sub = new Label("Gunakan menu di samping untuk mengelola penyewaan.");
-        sub.setStyle("-fx-font-size: 16;");
-        
+        sub.getStyleClass().add("welcome-subtitle");
+
+        container.getStyleClass().add("welcome-container");
         container.getChildren().addAll(welcome, sub);
-        
+
         contentArea.getChildren().clear();
         contentArea.getChildren().add(container);
     }
@@ -166,47 +167,33 @@ public class PetugasDashboardController {
         listPenyewaan.clear();
         File file = new File(CSV_PENYEWAAN);
         if (!file.exists()) return;
-        
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_PENYEWAAN))) {
             String line;
             boolean first = true;
             while ((line = br.readLine()) != null) {
                 if (first) { first = false; continue; }
                 String[] parts = line.split(",");
-                if (parts.length >= 6) {
+                if (parts.length >= 8) {
                     try {
                         String idSewa = parts[0];
                         String idPelanggan = parts[1];
                         String namaPelanggan = parts[2];
                         String noTelp = parts[3];
-                        
-                        // Handle format change (with/without alamat)
-                        String alamat = "-";
-                        String idKendaraan;
-                        int hari;
-                        String status;
-                        
-                        if (parts.length >= 8) {
-                            // New format: ..., noTelp, alamat, idKendaraan, hari, status
-                            alamat = parts[4];
-                            idKendaraan = parts[5];
-                            hari = Integer.parseInt(parts[6]);
-                            status = parts[7];
-                        } else {
-                            // Old format: ..., noTelp, idKendaraan, hari, status
-                            idKendaraan = parts[4];
-                            hari = Integer.parseInt(parts[5]);
-                            status = parts.length > 6 ? parts[6] : "Disewa";
-                        }
-                        
+                        String alamat = parts[4];
+                        String idKendaraan = parts[5];
+                        int hari = Integer.parseInt(parts[6]);
+                        String tanggal = parts[7];
+                        String status = parts.length > 8 ? parts[8] : "Disewa";
                         Pelanggan pelanggan = new Pelanggan(idPelanggan, namaPelanggan, noTelp, alamat);
                         Kendaraan kendaraan = cariKendaraan(idKendaraan);
-                        
                         if (kendaraan != null) {
                             Penyewaan sewa = new Penyewaan(idSewa, pelanggan, kendaraan, hari);
+                            if (tanggal != null && !tanggal.equals("null") && !tanggal.isEmpty()) {
+                                sewa.setTanggal(tanggal);
+                            }
                             if (status.equals("Selesai")) {
                                 sewa.setStatus("Selesai");
-                                kendaraan.setKetersediaan(true); // Ensure status is synced
+                                kendaraan.setKetersediaan(true);
                             } else {
                                 kendaraan.setKetersediaan(false);
                             }
@@ -350,8 +337,7 @@ public class PetugasDashboardController {
         // Separator
         Separator sep = new Separator();
         form.add(sep, 0, 5, 2, 1);
-        
-        // Data Kendaraan
+
         Label lblKendaraan = new Label("DATA KENDARAAN");
         lblKendaraan.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
         form.add(lblKendaraan, 0, 6, 2, 1);
@@ -365,8 +351,6 @@ public class PetugasDashboardController {
         }
         form.add(cbKendaraan, 1, 7);
         
-
-        // Input tanggal sewa
         form.add(new Label("Tanggal Sewa:"), 0, 8);
         DatePicker dpTanggal = new DatePicker(LocalDate.now());
         form.add(dpTanggal, 1, 8);
@@ -375,8 +359,7 @@ public class PetugasDashboardController {
         TextField tfHari = new TextField();
         tfHari.setPromptText("Jumlah hari");
         form.add(tfHari, 1, 9);
-        
-        // Button
+
         Button btnSimpan = new Button("💾 Simpan Penyewaan");
         btnSimpan.setStyle("-fx-background-color: #2d62ed; -fx-text-fill: white; " +
                           "-fx-font-size: 14px; -fx-padding: 10 30; -fx-cursor: hand;");
@@ -388,57 +371,66 @@ public class PetugasDashboardController {
             String kendaraanStr = cbKendaraan.getValue();
             String hariStr = tfHari.getText().trim();
             String tanggalSewa = dpTanggal.getValue() != null ? dpTanggal.getValue().toString() : "";
-            
-            // Validasi
+
             if (idPelanggan.isEmpty() || nama.isEmpty() || noTelp.isEmpty() || alamat.isEmpty() ||
                 kendaraanStr == null || hariStr.isEmpty() || tanggalSewa.isEmpty()) {
                 showAlert("Peringatan", "Semua field harus diisi!", Alert.AlertType.WARNING);
                 return;
             }
-            
+
+            try {
+                java.time.LocalDate inputDate = java.time.LocalDate.parse(tanggalSewa);
+                java.time.LocalDate today = java.time.LocalDate.now();
+                if (inputDate.isBefore(today)) {
+                    showAlert("Error", "Tanggal penyewaan tidak boleh sebelum hari ini!", Alert.AlertType.ERROR);
+                    return;
+                }
+            } catch (Exception ex) {
+                showAlert("Error", "Format tanggal tidak valid!", Alert.AlertType.ERROR);
+                return;
+            }
+
             try {
                 int hari = Integer.parseInt(hariStr);
                 if (hari <= 0) {
                     showAlert("Peringatan", "Lama sewa harus lebih dari 0 hari!", Alert.AlertType.WARNING);
                     return;
                 }
-                
+
                 String idKendaraan = kendaraanStr.split(" - ")[0];
                 Kendaraan kendaraan = cariKendaraan(idKendaraan);
-                
+
                 if (kendaraan == null || !kendaraan.isKetersediaan()) {
                     showAlert("Error", "Kendaraan tidak tersedia!", Alert.AlertType.ERROR);
                     return;
                 }
-                
-                // Buat penyewaan
+
                 String idSewa = "S" + String.format("%03d", listPenyewaan.size() + 1);
                 Pelanggan pelanggan = new Pelanggan(idPelanggan, nama, noTelp, alamat);
                 Penyewaan sewa = new Penyewaan(idSewa, pelanggan, kendaraan, hari);
                 sewa.setTanggal(tanggalSewa);
-                
+                kendaraan.setKetersediaan(false); 
+
                 listPenyewaan.add(sewa);
                 savePenyewaanToCSV();
                 saveKendaraanToCSV();
-                
+
                 showAlert("Sukses", "Penyewaan berhasil dicatat!\n\n" + sewa.getInfo(), Alert.AlertType.INFORMATION);
-                
-                // Clear form
+
                 tfIdPelanggan.setText(generateNextPelangganId());
                 tfNamaPelanggan.clear();
                 tfNoTelp.clear();
                 tfAlamat.clear();
                 cbKendaraan.setValue(null);
                 tfHari.clear();
-                
-                // Refresh combo
+
                 cbKendaraan.getItems().clear();
                 for (Kendaraan k : listKendaraan) {
                     if (k.isKetersediaan()) {
                         cbKendaraan.getItems().add(k.getIdKendaraan() + " - " + k.getMerek() + " " + k.getJenis());
                     }
                 }
-                
+
             } catch (NumberFormatException ex) {
                 showAlert("Error", "Lama sewa harus berupa angka!", Alert.AlertType.ERROR);
             }
@@ -451,7 +443,6 @@ public class PetugasDashboardController {
         return container;
     }
     
-    // ========== PENGEMBALIAN ==========
     private VBox createPengembalianView() {
         VBox container = new VBox(20);
         container.setPadding(new Insets(30));
@@ -459,8 +450,7 @@ public class PetugasDashboardController {
         
         Label title = new Label("↩️ Pengembalian Kendaraan");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d62ed;");
-        
-        // Table
+
         TableView<Penyewaan> table = new TableView<>();
         table.setStyle("-fx-background-color: white;");
         
@@ -482,8 +472,7 @@ public class PetugasDashboardController {
         colStatus.setPrefWidth(100);
         
         table.getColumns().addAll(colIdSewa, colPelanggan, colKendaraan, colStatus);
-        
-        // Load data - hanya yang masih disewa
+
         ObservableList<Penyewaan> dataDisewa = FXCollections.observableArrayList();
         for (Penyewaan p : listPenyewaan) {
             if (p.getStatus().equals("Disewa")) {
@@ -491,8 +480,7 @@ public class PetugasDashboardController {
             }
         }
         table.setItems(dataDisewa);
-        
-        // Button
+
         Button btnKembalikan = new Button("✓ Kembalikan Kendaraan");
         btnKembalikan.setStyle("-fx-background-color: #28a745; -fx-text-fill: white; " +
                                "-fx-font-size: 14px; -fx-padding: 10 30; -fx-cursor: hand;");
@@ -516,8 +504,7 @@ public class PetugasDashboardController {
                 saveKendaraanToCSV();
                 
                 showAlert("Sukses", "Kendaraan berhasil dikembalikan!\nStatus kendaraan: Tersedia", Alert.AlertType.INFORMATION);
-                
-                // Refresh table
+
                 dataDisewa.clear();
                 for (Penyewaan p : listPenyewaan) {
                     if (p.getStatus().equals("Disewa")) {
@@ -535,8 +522,7 @@ public class PetugasDashboardController {
         
         return container;
     }
-    
-    // ========== LIHAT KENDARAAN ==========
+
     private VBox createLihatKendaraanView() {
         VBox container = new VBox(20);
         container.setPadding(new Insets(30));
@@ -544,8 +530,7 @@ public class PetugasDashboardController {
         
         Label title = new Label("🚗 Data Kendaraan");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d62ed;");
-        
-        // Filter
+
         HBox filterBox = new HBox(10);
         filterBox.setStyle("-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-background-radius: 10;");
         
@@ -557,8 +542,7 @@ public class PetugasDashboardController {
         cbFilter.setValue("Semua");
         
         filterBox.getChildren().addAll(lblFilter, cbFilter);
-        
-        // Table
+
         TableView<Kendaraan> table = new TableView<>();
         table.setStyle("-fx-background-color: white;");
         
@@ -584,12 +568,10 @@ public class PetugasDashboardController {
         colStatus.setPrefWidth(120);
         
         table.getColumns().addAll(colId, colJenis, colMerek, colTahun, colStatus);
-        
-        // Load data
+
         ObservableList<Kendaraan> dataKendaraan = FXCollections.observableArrayList(listKendaraan);
         table.setItems(dataKendaraan);
-        
-        // Filter listener
+
         cbFilter.valueProperty().addListener((obs, old, newVal) -> {
             dataKendaraan.clear();
             if (newVal.equals("Semua")) {
@@ -604,8 +586,7 @@ public class PetugasDashboardController {
                 }
             }
         });
-        
-        // Info
+
         Label lblInfo = new Label();
         updateInfoLabel(lblInfo);
         lblInfo.setStyle("-fx-font-size: 14px; -fx-text-fill: #666;");
@@ -624,8 +605,7 @@ public class PetugasDashboardController {
         }
         lbl.setText(String.format("Total: %d kendaraan | Tersedia: %d | Disewa: %d", total, tersedia, total - tersedia));
     }
-    
-    // ========== LOGOUT ==========
+
     @FXML
     public void logout() {
         try {
@@ -639,8 +619,7 @@ public class PetugasDashboardController {
             e.printStackTrace();
         }
     }
-    
-    // ========== UTILITY ==========
+
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

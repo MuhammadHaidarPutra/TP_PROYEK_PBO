@@ -19,10 +19,16 @@ public class Penyewaan {
         this.status = "Disewa";
         this.tanggal = null;
         hitungTotal();
-        mulaiSewa();
+        // mulaiSewa() dipanggil hanya jika tanggal valid di controller
     }
 
     public void setTanggal(String tanggal) {
+    
+        java.time.LocalDate inputDate = java.time.LocalDate.parse(tanggal);
+        java.time.LocalDate today = java.time.LocalDate.now();
+        if (inputDate.isBefore(today)) {
+            throw new IllegalArgumentException("Tanggal penyewaan tidak boleh sebelum hari ini.");
+        }
         this.tanggal = tanggal;
     }
 
@@ -48,17 +54,35 @@ public class Penyewaan {
         return "ID Sewa: " + id_sewa +
                "\nPelanggan: " + pelanggan.getNama() +
                "\nKendaraan: " + kendaraan.getMerek() + " " + kendaraan.getModel() +
+             
                "\nHari: " + hari +
                "\nTotal: " + totalBiaya +
                "\nStatus: " + status;
     }
 
-    public String getIdSewa() { return id_sewa; }
-    public String getStatus() { return status; }
-    public Kendaraan getKendaraan() { return kendaraan; }
-    public Pelanggan getPelanggan() { return pelanggan; }
-    public int getHari() { return hari; }
-    public double getTotalBiaya() { return totalBiaya; }
+    public String getIdSewa() { 
+        return id_sewa; 
+    }
+
+    public String getStatus() { 
+        return status;
+    }
+
+    public Kendaraan getKendaraan() { 
+        return kendaraan; 
+    }
+
+    public Pelanggan getPelanggan() { 
+        return pelanggan; 
+    }
+
+    public int getHari() { 
+        return hari; 
+    }
+
+    public double getTotalBiaya() { 
+        return totalBiaya; 
+    }
 
     public void setStatus(String status) { this.status = status; }
 }

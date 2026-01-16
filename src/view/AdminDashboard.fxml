@@ -6,12 +6,9 @@
 <?import javafx.scene.control.*?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       alignment="CENTER"
-      spacing="20">
-
-    <Label text="Selamat Datang Admin"
-           style="-fx-font-size: 28; -fx-font-weight: bold;"/>
-
-    <Label text="Gunakan menu di samping untuk mengelola sistem."
-           style="-fx-font-size: 16;"/>
+      spacing="18"
+      styleClass="welcome-container">
+    <Label text="Selamat Datang Admin" styleClass="welcome-title"/>
+    <Label text="Gunakan menu di samping untuk mengelola sistem." styleClass="welcome-subtitle"/>
 </VBox>
 
