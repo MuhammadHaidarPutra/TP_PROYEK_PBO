@@ -615,6 +615,7 @@ public class PetugasDashboardController {
             Scene scene = new Scene(loader.load());
             scene.getStylesheets().add(getClass().getResource("/style/login.css").toExternalForm());
             stage.setScene(scene);
+            stage.setMaximized(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

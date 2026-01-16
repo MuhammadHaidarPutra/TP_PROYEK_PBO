@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.beans.value.ChangeListener;
@@ -26,12 +27,12 @@ public class LoginController {
         String u = usernameField.getText();
         String p = passwordField.isVisible() ? passwordField.getText() : showPasswordField.getText();
         messageLabel.setText("");
-        // Validasi field kosong
+    
         if (u.isEmpty() || p.isEmpty()) {
             showAlert("Username dan password harus diisi!");
             return;
         }
-        // Validasi panjang password
+   
         if (p.length() < 6) {
             showAlert("Password minimal 6 karakter!");
             return;
@@ -64,14 +65,14 @@ public class LoginController {
         passwordVisible = !passwordVisible;
         
         if (passwordVisible) {
-            // Tampilkan password (TextField biasa)
+       
             showPasswordField.setText(passwordField.getText());
             showPasswordField.setVisible(true);
             showPasswordField.setManaged(true);
             passwordField.setVisible(false);
             passwordField.setManaged(false);
         } else {
-            // Sembunyikan password (PasswordField)
+          
             passwordField.setText(showPasswordField.getText());
             passwordField.setVisible(true);
             passwordField.setManaged(true);
@@ -90,12 +91,10 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Set default state: password tersembunyi
         passwordVisible = false;
         showPasswordField.setVisible(false);
         showPasswordField.setManaged(false);
         
-        // Sinkronisasi text antara passwordField dan showPasswordField
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (passwordField.isVisible()) {
                 showPasswordField.setText(newValue);
@@ -114,6 +113,10 @@ public class LoginController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxml));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
-        Platform.runLater(() -> stage.setMaximized(true));
+        Platform.runLater(() -> {
+            stage.setMaximized(true);
+            stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+            stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+        });
     }
 }

@@ -10,7 +10,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+
 import model.Petugas;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.Base64;
@@ -33,6 +35,19 @@ public class PetugasController {
         colPassword.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getPassword()));
         loadPetugasFromCSV();
         tablePetugas.setItems(data);
+        maximizeWindow(tablePetugas);
+    }
+
+    public static void maximizeWindow(javafx.scene.Node node) {
+        node.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.windowProperty().addListener((obsWin, oldWin, newWin) -> {
+                    if (newWin != null && newWin instanceof javafx.stage.Stage) {
+                        ((javafx.stage.Stage) newWin).setMaximized(true);
+                    }
+                });
+            }
+        });
     }
 
     private void loadPetugasFromCSV() {
