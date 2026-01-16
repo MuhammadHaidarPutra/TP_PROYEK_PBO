@@ -7,7 +7,7 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="15">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="15" fx:controller="controller.LaporanController">
 
           <Label text="Laporan Penyewaan, Pengembalian, dan Status Kendaraan" styleClass="section-title"/>
           <BarChart fx:id="chartPenyewaan" title="Perbandingan Penyewaan Motor vs Mobil" VBox.vgrow="NEVER">
@@ -22,7 +22,7 @@
               <columns>
                      <TableColumn fx:id="colJenis" text="Jenis Laporan" prefWidth="160"/>
                      <TableColumn fx:id="colTanggal" text="Tanggal" prefWidth="120"/>
-                     <TableColumn fx:id="colKeterangan" text="Keterangan" prefWidth="180"/>
+                     <TableColumn fx:id="colKeterangan" text="Keterangan" prefWidth="400"/>
                      <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
               </columns>
        </TableView>

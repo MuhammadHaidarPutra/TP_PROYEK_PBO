@@ -1,11 +1,10 @@
+
 package model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Kendaraan {
-
-    // ====== ATRIBUT ======
     private final StringProperty plat = new SimpleStringProperty();
     private final StringProperty merk = new SimpleStringProperty();
     private final StringProperty jenis = new SimpleStringProperty();
@@ -13,7 +12,6 @@ public class Kendaraan {
     protected boolean ketersediaan;
     protected double hargaPerHari;
 
-    // ====== CONSTRUCTOR ======
     public Kendaraan(String plat, String merk, String jenis, String tahun) {
         this.plat.set(plat);
         this.merk.set(merk);
@@ -21,31 +19,59 @@ public class Kendaraan {
         this.tahun.set(tahun);
         this.ketersediaan = true;
     }
-    public StringProperty platProperty() { return plat; }
-    public StringProperty merkProperty() { return merk; }
-    public StringProperty jenisProperty() { return jenis; }
-    public StringProperty tahunProperty() { return tahun; }
 
-    public String getPlat() { return plat.get(); }
-    public void setPlat(String value) { plat.set(value); }
+    public StringProperty platProperty() { 
+        return plat;
+     
+    }
 
-    public String getMerk() { return merk.get(); }
-    public void setMerk(String value) { merk.set(value); }
+    public StringProperty merkProperty() {
+        return merk; 
+    }
 
-    public String getJenis() { return jenis.get(); }
-    public void setJenis(String value) { jenis.set(value); }
+    public StringProperty jenisProperty() {
+        return jenis; 
+    }
 
-    public String getTahun() { return tahun.get(); }
-    public void setTahun(String value) { tahun.set(value); }
+    public StringProperty tahunProperty() { 
+        return tahun; 
+    }
 
-    // ====== METHOD ======
+    public String getPlat() { 
+        return plat.get(); 
+    }
 
-    // Hitung total harga sewa
+    public void setPlat(String value) {
+        plat.set(value); 
+    }
+
+    public String getMerk() { 
+        return merk.get();
+    }
+    public void setMerk(String value) { 
+        merk.set(value);
+    }
+
+    public String getJenis() { 
+        return jenis.get(); 
+    }
+
+    public void setJenis(String value) {
+        jenis.set(value);
+    }
+
+    public String getTahun() { 
+        return tahun.get();
+    }
+    public void setTahun(String value) {
+        tahun.set(value); 
+    }
+
+
     public double kalkulasiHarga(int hari) {
         return hargaPerHari * hari;
     }
 
-    // Info kendaraan
     public String getInfo() {
         return "Plat: " + getPlat() +
                "\nMerk: " + getMerk() +
@@ -55,17 +81,19 @@ public class Kendaraan {
                "\nStatus: " + (ketersediaan ? "Tersedia" : "Disewa");
     }
 
-    // Cek ketersediaan
+    
     public boolean isKetersediaan() {
         return ketersediaan;
     }
-
-    // Set ketersediaan
+   
     public void setKetersediaan(boolean status) {
         this.ketersediaan = status;
     }
 
-    // Getter tambahan
+    public void setHargaPerHari(double harga) {
+        this.hargaPerHari = harga;
+    }
+
     public String getIdKendaraan() {
         return getPlat();
     }
@@ -73,7 +101,7 @@ public class Kendaraan {
     public String getMerek() {
         return getMerk();
     }
-
+   
     public String getModel() {
         return getJenis();
     }

@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 public class SistemManajemen {
 
-    // ===== ATRIBUT =====
+
     private ArrayList<Pelanggan> listPelanggan = new ArrayList<>();
     private ArrayList<Kendaraan> listKendaraan = new ArrayList<>();
     private ArrayList<Penyewaan> listRental = new ArrayList<>();
 
-    // ===== PELANGGAN =====
     public void tambahPelanggan(Pelanggan p) {
         listPelanggan.add(p);
     }
@@ -30,7 +29,6 @@ public class SistemManajemen {
         }
     }
 
-    // ===== KENDARAAN =====
     public void tambahKendaraan(Kendaraan k) {
         listKendaraan.add(k);
     }
@@ -51,7 +49,6 @@ public class SistemManajemen {
         }
     }
 
-    // ===== PENYEWAAN =====
     public void buatRental(String idSewa, Pelanggan p, Kendaraan k, int hari) {
         if (k.isKetersediaan()) {
             Penyewaan r = new Penyewaan(idSewa, p, k, hari);

@@ -1,16 +1,13 @@
-/* BACKGROUND */
 .bg {
     -fx-background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* MAIN CARD */
 .login-container {
     -fx-background-color: white;
     -fx-background-radius: 25;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 40, 0, 0, 15);
 }
 
-/* LEFT SECTION */
 .welcome-section {
     -fx-padding: 80 60 50 60;
     -fx-spacing: 8;
@@ -43,7 +40,6 @@
     -fx-line-spacing: 1.5;
 }
 
-/* Decorative Line & Text at Bottom Left */
 .footer-line {
     -fx-background-color: linear-gradient(to right, #2d62ed, transparent);
     -fx-min-height: 3;
@@ -59,9 +55,7 @@
     -fx-font-weight: 500;
 }
 
-/* RIGHT LOGIN PANEL */
 .form-section {
-    /* Gradasi Biru Terang ke Biru Cyan sesuai gambar */
     -fx-background-color: linear-gradient(to bottom right, #2d62ed, #00d2ff);
     -fx-background-radius: 0 25 25 0;
     -fx-padding: 40 50;
@@ -79,14 +73,12 @@
     -fx-text-fill: rgba(255,255,255,0.9);
 }
 
-/* INPUT LABELS */
 .input-label {
     -fx-text-fill: white;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
 
-/* INPUT FIELDS */
 .text-field, .password-field {
     -fx-pref-width: 350px;
     -fx-background-color: rgba(255,255,255,0.2);
@@ -102,7 +94,6 @@
     -fx-background-color: rgba(255,255,255,0.25);
 }
 
-/* LOGIN BUTTON */
 .login-button {
     -fx-background-color: white;
     -fx-text-fill: #2d62ed;

@@ -40,6 +40,7 @@
                         onAction="#showLihatKendaraan" 
                         styleClass="sidebar-btn" maxWidth="Infinity"/>
 
+                <Button fx:id="btnRiwayatPemesanan" text="📜 Riwayat Pemesanan" onAction="#showRiwayatPemesanan" styleClass="sidebar-btn" maxWidth="Infinity"/>
                 <Button text="🚪 Logout" onAction="#logout" styleClass="sidebar-btn" maxWidth="Infinity"/>
             </VBox>
             

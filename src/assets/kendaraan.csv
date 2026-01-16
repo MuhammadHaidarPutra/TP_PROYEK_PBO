@@ -1,11 +1,11 @@
 plat,merk,jenis,tahun
-B 1234 ABC,Toyota,Mobil,2020
-AD 5678 DEF,Honda,Motor,2019
-AB 9101 GHI,Suzuki,Mobil,2021
-AD 2345 JKL,Yamaha,Motor,2018
 AB 6789 MNO,Daihatsu,Mobil,2022
 AD 1122 PQR,Kawasaki,Motor,2020
-B 3456 STU,Mitsubishi,Mobil,2017
+B 3456 STU,Mitsubishi,Mobil,2018
 AD 7890 VWX,Vespa,Motor,2021
 AB 2233 YZA,Hyundai,Mobil,2023
 AD 4567 BCD,Honda,Motor,2016
+AD 3006 BKE,Honda,Mobil,2026
+AD 2006 BKE,Yamaha,Motor,2024
+AB 3006 BKE,Mazda,Mobil,2003
+BM 3214 KO,Mitsubishi,Mobil,2023

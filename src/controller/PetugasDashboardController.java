@@ -23,6 +23,70 @@ public class PetugasDashboardController {
     @FXML private Button btnInputSewa;
     @FXML private Button btnPengembalian;
     @FXML private Button btnLihatKendaraan;
+    @FXML private Button btnRiwayatPemesanan;
+        @FXML
+        public void showRiwayatPemesanan() {
+            setActiveButton(btnRiwayatPemesanan);
+            VBox container = new VBox(20);
+            container.setPadding(new Insets(30));
+            Label title = new Label("📜 Riwayat Pemesanan");
+            title.setStyle("-fx-font-size: 22; -fx-font-weight: bold;");
+
+            TableView<Penyewaan> table = new TableView<>();
+            TableColumn<Penyewaan, String> colIdSewa = new TableColumn<>("ID Sewa");
+            colIdSewa.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getIdSewa()));
+            colIdSewa.setPrefWidth(100);
+
+            TableColumn<Penyewaan, String> colPelanggan = new TableColumn<>("Pelanggan");
+            colPelanggan.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPelanggan().getNama()));
+            colPelanggan.setPrefWidth(120);
+
+            TableColumn<Penyewaan, String> colNoHp = new TableColumn<>("No. HP");
+            colNoHp.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPelanggan().getNoTelepon()));
+            colNoHp.setPrefWidth(120);
+
+            TableColumn<Penyewaan, String> colAlamat = new TableColumn<>("Alamat");
+            colAlamat.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPelanggan().getAlamat()));
+            colAlamat.setPrefWidth(180);
+
+            TableColumn<Penyewaan, String> colKendaraan = new TableColumn<>("Kendaraan");
+            colKendaraan.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getKendaraan().getMerk() + " " + data.getValue().getKendaraan().getJenis()));
+            colKendaraan.setPrefWidth(120);
+
+            TableColumn<Penyewaan, String> colHari = new TableColumn<>("Hari");
+            colHari.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(String.valueOf(data.getValue().getHari())));
+            colHari.setPrefWidth(60);
+
+            TableColumn<Penyewaan, String> colTotal = new TableColumn<>("Total");
+            colTotal.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(String.valueOf(data.getValue().getTotalBiaya())));
+            colTotal.setPrefWidth(100);
+
+            TableColumn<Penyewaan, String> colTanggal = new TableColumn<>("Tanggal");
+            colTanggal.setCellValueFactory(data -> {
+                String tgl = data.getValue().getTanggal();
+                if (tgl == null || tgl.isEmpty() || tgl.equals("-")) return new javafx.beans.property.SimpleStringProperty("-");
+                try {
+                    java.time.LocalDate date = java.time.LocalDate.parse(tgl);
+                    java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    return new javafx.beans.property.SimpleStringProperty(date.format(fmt));
+                } catch (Exception e) {
+                    return new javafx.beans.property.SimpleStringProperty(tgl);
+                }
+            });
+            colTanggal.setPrefWidth(100);
+
+            TableColumn<Penyewaan, String> colStatus = new TableColumn<>("Status");
+            colStatus.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getStatus()));
+            colStatus.setPrefWidth(80);
+
+            table.getColumns().addAll(colIdSewa, colPelanggan, colNoHp, colAlamat, colKendaraan, colHari, colTotal, colTanggal, colStatus);
+            table.setItems(FXCollections.observableArrayList(listPenyewaan));
+            table.setPrefHeight(400);
+
+            container.getChildren().addAll(title, table);
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(container);
+        }
     
     private ArrayList<Penyewaan> listPenyewaan = new ArrayList<>();
     private ArrayList<Kendaraan> listKendaraan = new ArrayList<>();
@@ -71,7 +135,7 @@ public class PetugasDashboardController {
         listKendaraan.clear();
         File file = new File(CSV_KENDARAAN);
         if (!file.exists()) return;
-        
+
         try (BufferedReader br = new BufferedReader(new FileReader(CSV_KENDARAAN))) {
             String line;
             boolean first = true;
@@ -80,7 +144,16 @@ public class PetugasDashboardController {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
                     // Format: plat,merk,jenis,tahun
-                    Kendaraan k = new Kendaraan(parts[0], parts[1], parts[2], parts[3]);
+                    Kendaraan k;
+                    if (parts[2].equalsIgnoreCase("Mobil")) {
+                        k = new Mobil(parts[0], parts[1], parts[2], parts[3], 4); // default kursi 4
+                        k.setHargaPerHari(120000);
+                    } else if (parts[2].equalsIgnoreCase("Motor")) {
+                        k = new Motor(parts[0], parts[1], parts[2], parts[3], 110); // default cc 110
+                        k.setHargaPerHari(70000);
+                    } else {
+                        k = new Kendaraan(parts[0], parts[1], parts[2], parts[3]);
+                    }
                     listKendaraan.add(k);
                 }
             }
@@ -151,7 +224,7 @@ public class PetugasDashboardController {
     
     private void savePenyewaanToCSV() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(CSV_PENYEWAAN))) {
-            bw.write("id_sewa,id_pelanggan,nama_pelanggan,no_telp,alamat,id_kendaraan,hari,status\n");
+            bw.write("id_sewa,id_pelanggan,nama_pelanggan,no_telp,alamat,id_kendaraan,hari,tanggal,status\n");
             for (Penyewaan p : listPenyewaan) {
                 String line = p.getIdSewa() + "," +
                              p.getPelanggan().getIdPelanggan() + "," +
@@ -160,6 +233,7 @@ public class PetugasDashboardController {
                              p.getPelanggan().getAlamat() + "," +
                              p.getKendaraan().getIdKendaraan() + "," +
                              p.getHari() + "," +
+                             p.getTanggal() + "," +
                              p.getStatus() + "\n";
                 bw.write(line);
             }
@@ -291,10 +365,16 @@ public class PetugasDashboardController {
         }
         form.add(cbKendaraan, 1, 7);
         
-        form.add(new Label("Lama Sewa (hari):"), 0, 8);
+
+        // Input tanggal sewa
+        form.add(new Label("Tanggal Sewa:"), 0, 8);
+        DatePicker dpTanggal = new DatePicker(LocalDate.now());
+        form.add(dpTanggal, 1, 8);
+
+        form.add(new Label("Lama Sewa (hari):"), 0, 9);
         TextField tfHari = new TextField();
         tfHari.setPromptText("Jumlah hari");
-        form.add(tfHari, 1, 8);
+        form.add(tfHari, 1, 9);
         
         // Button
         Button btnSimpan = new Button("💾 Simpan Penyewaan");
@@ -307,10 +387,11 @@ public class PetugasDashboardController {
             String alamat = tfAlamat.getText().trim();
             String kendaraanStr = cbKendaraan.getValue();
             String hariStr = tfHari.getText().trim();
+            String tanggalSewa = dpTanggal.getValue() != null ? dpTanggal.getValue().toString() : "";
             
             // Validasi
             if (idPelanggan.isEmpty() || nama.isEmpty() || noTelp.isEmpty() || alamat.isEmpty() ||
-                kendaraanStr == null || hariStr.isEmpty()) {
+                kendaraanStr == null || hariStr.isEmpty() || tanggalSewa.isEmpty()) {
                 showAlert("Peringatan", "Semua field harus diisi!", Alert.AlertType.WARNING);
                 return;
             }
@@ -334,6 +415,7 @@ public class PetugasDashboardController {
                 String idSewa = "S" + String.format("%03d", listPenyewaan.size() + 1);
                 Pelanggan pelanggan = new Pelanggan(idPelanggan, nama, noTelp, alamat);
                 Penyewaan sewa = new Penyewaan(idSewa, pelanggan, kendaraan, hari);
+                sewa.setTanggal(tanggalSewa);
                 
                 listPenyewaan.add(sewa);
                 savePenyewaanToCSV();

@@ -1,14 +1,11 @@
 package model;
 
 public class Pelanggan {
-
-    // ===== ATRIBUT =====
     private String id_pelanggan;
     private String nama;
     private String no_telepon;
     private String alamat;
 
-    // ===== CONSTRUCTOR =====
     public Pelanggan(String id_pelanggan, String nama, String no_telepon, String alamat) {
         this.id_pelanggan = id_pelanggan;
         this.nama = nama;
@@ -16,9 +13,6 @@ public class Pelanggan {
         this.alamat = alamat;
     }
 
-    // ===== METHOD =====
-
-    // Mengembalikan data pelanggan dalam bentuk teks
     public String getPelanggan() {
         return "ID Pelanggan : " + id_pelanggan +
                "\nNama         : " + nama +
@@ -26,12 +20,10 @@ public class Pelanggan {
                "\nAlamat       : " + alamat;
     }
 
-    // Mengubah nama pelanggan
     public void setNama(String nama) {
         this.nama = nama;
     }
 
-    // Mengubah nomor telepon
     public void setNo_telepon(String no_telepon) {
         this.no_telepon = no_telepon;
     }
@@ -40,7 +32,6 @@ public class Pelanggan {
         this.alamat = alamat;
     }
 
-    // ===== GETTER TAMBAHAN (opsional) =====
     public String getIdPelanggan() {
         return id_pelanggan;
     }

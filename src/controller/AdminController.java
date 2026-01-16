@@ -16,7 +16,6 @@ public class AdminController {
 
     @FXML
     public void initialize() {
-        // Batasi akses hanya untuk admin
         if (!(Session.userAktif instanceof Admin)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Akses Ditolak");
@@ -34,13 +33,11 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxml));
             javafx.scene.Node node = (javafx.scene.Node) loader.load();
             contentArea.getChildren().setAll(node);
-            // Binding ukuran agar node selalu mengikuti parent
             if (node instanceof javafx.scene.layout.Region) {
                 javafx.scene.layout.Region region = (javafx.scene.layout.Region) node;
                 region.prefWidthProperty().bind(contentArea.widthProperty());
                 region.prefHeightProperty().bind(contentArea.heightProperty());
             }
-            // Pastikan window tetap fullscreen
             Stage stage = (Stage) contentArea.getScene().getWindow();
             if (stage != null) {
                 stage.setMaximized(true);

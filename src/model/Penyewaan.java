@@ -1,6 +1,7 @@
 package model;
 
 public class Penyewaan {
+    private String tanggal;
 
 
     private String id_sewa;
@@ -10,15 +11,23 @@ public class Penyewaan {
     private Pelanggan pelanggan;
     private Kendaraan kendaraan;
 
-    // ===== CONSTRUCTOR =====
     public Penyewaan(String id_sewa, Pelanggan pelanggan, Kendaraan kendaraan, int hari) {
         this.id_sewa = id_sewa;
         this.pelanggan = pelanggan;
         this.kendaraan = kendaraan;
         this.hari = hari;
         this.status = "Disewa";
+        this.tanggal = null;
         hitungTotal();
         mulaiSewa();
+    }
+
+    public void setTanggal(String tanggal) {
+        this.tanggal = tanggal;
+    }
+
+    public String getTanggal() {
+        return tanggal;
     }
 
 
@@ -35,7 +44,6 @@ public class Penyewaan {
         status = "Selesai";
     }
 
-    // Info penyewaan
     public String getInfo() {
         return "ID Sewa: " + id_sewa +
                "\nPelanggan: " + pelanggan.getNama() +
@@ -45,14 +53,12 @@ public class Penyewaan {
                "\nStatus: " + status;
     }
 
-    // ===== GETTER =====
     public String getIdSewa() { return id_sewa; }
     public String getStatus() { return status; }
     public Kendaraan getKendaraan() { return kendaraan; }
     public Pelanggan getPelanggan() { return pelanggan; }
     public int getHari() { return hari; }
     public double getTotalBiaya() { return totalBiaya; }
-    
-    // ===== SETTER =====
+
     public void setStatus(String status) { this.status = status; }
 }

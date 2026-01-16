@@ -47,7 +47,7 @@ public class PetugasController {
             String line;
             boolean first = true;
             while ((line = br.readLine()) != null) {
-                if (first) { first = false; continue; } // skip header
+                if (first) { first = false; continue; }
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
                     String username = parts[0];
@@ -75,12 +75,10 @@ public class PetugasController {
     public void handleTambah() {
         String username = tfUsername.getText().trim();
         String password = tfPassword.getText().trim();
-        // Validasi field kosong
         if (username.isEmpty() || password.isEmpty()) {
             showWarning("Username dan password harus diisi!");
             return;
         }
-        // Validasi duplikasi username
         for (Petugas pet : data) {
             if (pet.getUsername().equalsIgnoreCase(username)) {
                 showWarning("Username sudah terdaftar!");
@@ -104,7 +102,6 @@ public class PetugasController {
                 showWarning("Username dan password harus diisi!");
                 return;
             }
-            // Validasi duplikasi username (kecuali untuk data yang sedang diubah)
             for (Petugas pet : data) {
                 if (pet != p && pet.getUsername().equalsIgnoreCase(username)) {
                     showWarning("Username sudah terdaftar!");
@@ -157,7 +154,6 @@ public class PetugasController {
         alert.showAndWait();
     }
 
-    // Handler untuk tombol Input Penyewaan
     @FXML
     private void inputSewa() {
         if (outputArea != null) {
@@ -167,7 +163,6 @@ public class PetugasController {
         }
     }
 
-    // Handler untuk tombol Pengembalian
     @FXML
     private void pengembalian() {
         if (outputArea != null) {
@@ -177,7 +172,6 @@ public class PetugasController {
         }
     }
 
-    // Handler untuk tombol Lihat Kendaraan
     @FXML
     private void lihatKendaraan() {
         if (outputArea != null) {
