@@ -298,7 +298,7 @@ public class PetugasDashboardController {
         container.setPadding(new Insets(30));
         container.setStyle("-fx-background-color: white;");
         
-        Label title = new Label("📝 Input Penyewaan Kendaraan");
+        Label title = new Label("\uD83D\uDCDD Input Penyewaan Kendaraan");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d62ed;");
         
         // Form
@@ -448,7 +448,7 @@ public class PetugasDashboardController {
         container.setPadding(new Insets(30));
         container.setStyle("-fx-background-color: white;");
         
-        Label title = new Label("↩️ Pengembalian Kendaraan");
+        Label title = new Label("\u21A9\uFE0F Pengembalian Kendaraan");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2d62ed;");
 
         TableView<Penyewaan> table = new TableView<>();
