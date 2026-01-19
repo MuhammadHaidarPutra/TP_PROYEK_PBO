@@ -1,6 +1,6 @@
 package model;
 
-public abstract class User {
+public abstract class User implements Authenticable {
     protected String username;
     protected String password;
     protected String role;
@@ -30,4 +30,10 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public abstract boolean login(String username, String password);
+
+    @Override
+    public abstract void logout();
 }

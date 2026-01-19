@@ -1,6 +1,6 @@
 package model;
 
-public class Pelanggan {
+public class Pelanggan implements Authenticable {
     private String id_pelanggan;
     private String nama;
     private String no_telepon;
@@ -47,5 +47,17 @@ public class Pelanggan {
     
     public String getAlamat() {
         return alamat;
+    }
+
+    @Override
+    public boolean login(String username, String password) {
+        // Contoh sederhana, sesuaikan dengan validasi sebenarnya
+        // Misal username = nama, password = id_pelanggan
+        return this.nama.equals(username) && this.id_pelanggan.equals(password);
+    }
+
+    @Override
+    public void logout() {
+        System.out.println("Pelanggan logged out");
     }
 }
